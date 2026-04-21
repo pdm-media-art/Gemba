@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gemba Walk 3.0 – Fragenkatalog</title>
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      font-size: 13px;
+    }
+
+    /* ========== HEADER ========== */
+    .page-header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 28px 40px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .page-header .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .page-header .shield-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #e94560, #c0392b);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 3px 10px rgba(233,69,96,0.4);
+    }
+    .page-header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+    .page-header .version-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+    .header-right { text-align: right; }
+    .print-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .print-btn:hover { background: rgba(255,255,255,0.28); }
+
+    /* ========== LAYOUT ========== */
+    .container { max-width: 1400px; margin: 0 auto; padding: 28px 24px; }
+
+    /* ========== META CARD ========== */
+    .meta-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .meta-card .field label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .meta-card .field input {
+      width: 100%;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 7px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: #1a1a2e;
+      transition: border 0.2s, box-shadow 0.2s;
+      background: #fafafa;
+    }
+    .meta-card .field input:focus {
+      outline: none;
+      border-color: #0f3460;
+      box-shadow: 0 0 0 3px rgba(15,52,96,0.1);
+      background: #fff;
+    }
+
+    /* ========== LEGEND ========== */
+    .legend-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+    .legend-card h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .legend-items { display: flex; gap: 16px; flex-wrap: wrap; }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 10px 16px;
+      flex: 1;
+      min-width: 220px;
+      border-left: 4px solid transparent;
+    }
+    .legend-item.green  { border-left-color: #27ae60; }
+    .legend-item.yellow { border-left-color: #f39c12; }
+    .legend-item.red    { border-left-color: #e74c3c; }
+    .legend-item .badge {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .badge.b1 { background: #27ae60; }
+    .badge.b2 { background: #f39c12; }
+    .badge.b3 { background: #e74c3c; }
+    .legend-item .leg-title { font-weight: 700; font-size: 12px; }
+    .legend-item .leg-desc  { font-size: 11px; color: #666; margin-top: 2px; }
+
+    /* ========== TABS ========== */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #fff;
+      border: none;
+      border-radius: 8px 8px 0 0;
+      padding: 11px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #888;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 2px solid transparent;
+      letter-spacing: 0.3px;
+    }
+    .tab-btn:hover { color: #0f3460; background: #eef2fa; }
+    .tab-btn.active {
+      color: #0f3460;
+      background: #fff;
+      border-bottom: 2px solid #0f3460;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+    }
+    .tab-content {
+      background: #fff;
+      border-radius: 0 12px 12px 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 0;
+      display: none;
+    }
+    .tab-content.active { display: block; }
+
+    /* ========== SECTION HEADERS ========== */
+    .section-header {
+      padding: 20px 28px 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .section-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+    .section-header p {
+      font-size: 11px;
+      color: #888;
+      margin-top: 4px;
+    }
+    .section-header .freq-badge {
+      display: inline-block;
+      background: #eef2fa;
+      color: #0f3460;
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    /* ========== CATEGORY BLOCK ========== */
+    .category-block { border-bottom: 2px solid #f0f0f0; }
+    .category-block:last-child { border-bottom: none; }
+    .cat-header {
+      background: #f8f9fa;
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      border-bottom: 1px solid #ececec;
+      transition: background 0.2s;
+    }
+    .cat-header:hover { background: #eef2fa; }
+    .cat-header .cat-num {
+      background: #0f3460;
+      color: #fff;
+      width: 28px; height: 28px;
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .cat-header h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1a1a2e;
+      flex: 1;
+    }
+    .cat-header .cat-scope {
+      font-size: 10px;
+      color: #999;
+      font-style: italic;
+    }
+    .cat-header .toggle-icon {
+      font-size: 16px;
+      color: #aaa;
+      transition: transform 0.2s;
+    }
+    .cat-header.collapsed .toggle-icon { transform: rotate(-90deg); }
+    .cat-body { overflow: hidden; }
+
+    /* ========== QUESTION TABLE ========== */
+    .q-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .q-table thead tr {
+      background: #f0f4fb;
+    }
+    .q-table thead th {
+      padding: 9px 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #666;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .q-table tbody tr {
+      border-bottom: 1px solid #f5f5f5;
+      transition: background 0.15s;
+    }
+    .q-table tbody tr:hover { background: #f9fbff; }
+    .q-table td {
+      padding: 10px 10px;
+      vertical-align: top;
+    }
+    .q-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f3460;
+      white-space: nowrap;
+      width: 42px;
+    }
+    .q-text { font-size: 12px; color: #333; line-height: 1.5; min-width: 200px; }
+    .q-example {
+      font-size: 10px;
+      color: #e74c3c;
+      font-style: italic;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    /* Finding radio buttons */
+    .finding-group {
+      display: flex;
+      gap: 6px;
+      flex-direction: column;
+      align-items: center;
+      min-width: 70px;
+    }
+    .finding-group label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 4px 7px;
+      border-radius: 5px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .finding-group label:hover { background: #f0f4fb; }
+    .finding-group input[type="radio"] { display: none; }
+    .finding-group .radio-dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .finding-group input[type="radio"]:checked + .radio-dot {
+      border-color: currentColor;
+    }
+    .finding-group input[type="radio"]:checked + .radio-dot::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .f1-label { color: #27ae60; }
+    .f2-label { color: #f39c12; }
+    .f3-label { color: #e74c3c; }
+    /* Highlight rows by finding */
+    .q-table tbody tr.finding-1 { background: rgba(39,174,96,0.05); }
+    .q-table tbody tr.finding-2 { background: rgba(243,156,18,0.08); }
+    .q-table tbody tr.finding-3 { background: rgba(231,76,60,0.08); }
+
+    /* Text inputs in table */
+    .q-input {
+      width: 100%;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 5px;
+      padding: 6px 8px;
+      font-size: 11px;
+      color: #333;
+      background: #fafafa;
+      transition: border 0.2s;
+      resize: vertical;
+      min-width: 80px;
+    }
+    .q-input:focus {
+      outline: none;
+      border-color: #0f3460;
+      background: #fff;
+    }
+    /* Checkbox */
+    .checkbox-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 4px;
+    }
+    .checkbox-wrap input[type="checkbox"] {
+      width: 16px; height: 16px;
+      cursor: pointer;
+      accent-color: #e74c3c;
+    }
+
+    /* ========== INDIVIDUELLER BEREICH ========== */
+    .ind-table { width: 100%; border-collapse: collapse; }
+    .ind-table thead th {
+      background: #f0f4fb;
+      padding: 9px 12px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #666;
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .ind-table tbody td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f5f5f5;
+      vertical-align: top;
+    }
+    .ind-table tbody tr:hover { background: #f9fbff; }
+    .add-row-btn {
+      margin: 14px 28px;
+      background: #0f3460;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 9px 18px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .add-row-btn:hover { background: #16213e; }
+    .remove-row-btn {
+      background: #fce8e8;
+      color: #e74c3c;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+    .remove-row-btn:hover { background: #f5c6c6; }
+
+    /* ========== AUSWERTUNG DASHBOARD ========== */
+    .dashboard {
+      padding: 28px;
+    }
+    .dashboard h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .score-col {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .score-col h4 {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .score-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #ececec;
+      font-size: 12px;
+    }
+    .score-item:last-child { border-bottom: none; }
+    .score-item .s-label { color: #555; }
+    .score-item .s-value {
+      font-weight: 700;
+      font-size: 15px;
+      min-width: 28px;
+      text-align: right;
+    }
+    .s-value.red    { color: #e74c3c; }
+    .s-value.yellow { color: #f39c12; }
+    .s-value.green  { color: #27ae60; }
+    .s-value.blue   { color: #0f3460; }
+    .progress-bar-wrap {
+      background: #e8e8e8;
+      border-radius: 10px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+    .progress-bar.green  { background: #27ae60; }
+    .progress-bar.yellow { background: #f39c12; }
+    .progress-bar.red    { background: #e74c3c; }
+
+    /* KPI Badges */
+    .kpi-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px 20px;
+      flex: 1;
+      min-width: 140px;
+      border: 1.5px solid #eee;
+      text-align: center;
+    }
+    .kpi-card .kpi-val {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .kpi-card .kpi-lbl {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #888;
+      margin-top: 6px;
+    }
+
+    /* Dokumentation */
+    .doku-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 20px;
+    }
+    .doku-card h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 12px;
+    }
+    .doku-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .doku-row label {
+      font-size: 12px;
+      color: #555;
+      flex: 1;
+    }
+    .doku-row select, .doku-row input {
+      border: 1.5px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 12px;
+      background: #fff;
+      color: #333;
+    }
+    .acute-alert {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fce8e8;
+      border: 1.5px solid #f5c6c6;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 10px;
+    }
+    .acute-alert span { font-size: 12px; color: #c0392b; font-weight: 600; }
+
+    /* ========== SCROLLABLE TABLE WRAPPER ========== */
+    .table-scroll { overflow-x: auto; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 900px) {
+      .meta-card { grid-template-columns: 1fr 1fr; }
+      .score-grid { grid-template-columns: 1fr 1fr; }
+      .page-header { padding: 16px 18px; }
+      .page-header h1 { font-size: 16px; }
+      .container { padding: 16px 10px; }
+    }
+    @media (max-width: 600px) {
+      .meta-card { grid-template-columns: 1fr; }
+      .score-grid { grid-template-columns: 1fr; }
+      .legend-item { min-width: 100%; }
+      .kpi-row { flex-direction: column; }
+    }
+
+    /* ========== PRINT ========== */
+    @media print {
+      body { background: #fff; font-size: 10pt; }
+      .page-header { position: static; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .print-btn { display: none; }
+      .tab-content { display: block !important; }
+      .tabs { display: none; }
+      .cat-body { display: block !important; }
+      .container { padding: 10px; }
+    }
+
+    /* ========== COLLAPSIBLE ========== */
+    .collapsible { transition: max-height 0.3s ease; }
+
+    /* ========== TOOLTIP ========== */
+    .has-tooltip { position: relative; cursor: help; }
+    .has-tooltip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      white-space: nowrap
+      ;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+      z-index: 999;
+    }
+    .has-tooltip:hover::after { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="page-header">
+  <div class="logo-area">
+    <div class="shield-icon">🛡️</div>
+    <div>
+      <h1>Gemba Walk</h1>
+      <span class="version-badge">VERSION 3.0 · DEUTSCH</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="print-btn" onclick="window.print()">🖨️ Drucken / Exportieren</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ========== META INFO ========== -->
+  <div class="meta-card">
+    <div class="field">
+      <label>Team</label>
+      <input type="text" id="meta-team" placeholder="z.B. SecOps Mainz" />
+    </div>
+    <div class="field">
+      <label>Durchführende Person</label>
+      <input type="text" id="meta-person" placeholder="Vor- und Nachname" />
+    </div>
+    <div class="field">
+      <label>Datum der Durchführung</label>
+      <input type="date" id="meta-date" />
+    </div>
+  </div>
+
+  <!-- ========== BEWERTUNGSLEGENDE ========== -->
+  <div class="legend-card">
+    <h3>Bewertungsskala – Security Finding</h3>
+    <div class="legend-items">
+      <div class="legend-item green">
+        <div class="badge b1">1</div>
+        <div>
+          <div class="leg-title">No / Minimal Finding</div>
+          <div class="leg-desc">Kein Handlungsbedarf – Ist-Zustand entspricht den Anforderungen oder minimale Abweichung.</div>
+        </div>
+      </div>
+      <div class="legend-item yellow">
+        <div class="badge b2">2</div>
+        <div>
+          <div class="leg-title">Minor Finding – Geringfügige Abweichung</div>
+          <div class="leg-desc">Zeitnahe Reaktion nötig – z.B. ServiceNow-Ticket, Ansprache im Weekly.</div>
+        </div>
+      </div>
+      <div class="legend-item red">
+        <div class="badge b3">3</div>
+        <div>
+          <div class="leg-title">Major Finding – Schwerwiegende Abweichung</div>
+          <div class="leg-desc">Sofortige Reaktion nötig – vollständige Nichterfüllung, systematischer Fehler.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TABS ========== -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('basis', this)">📋 Basisfragen <span id="badge-basis" style="background:#e74c3c;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px;">0</span></button>
+    <button class="tab-btn" onclick="switchTab('erweitert', this)">🔍 Erweiterter Gemba <span id="badge-erweitert" style="background:#f39c12;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px;">0</span></button>
+    <button class="tab-btn" onclick="switchTab('individuell', this)">✏️ Individueller Bereich</button>
+    <button class="tab-btn" onclick="switchTab('auswertung', this)">📊 Auswertung &amp; Dashboard</button>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- TAB 1: BASISFRAGEN                                     -->
+  <!-- ====================================================== -->
+  <div class="tab-content active" id="tab-basis">
+    <div class="section-header">
+      <h2>Basisfragen <span class="freq-badge">📅 MONATLICH</span></h2>
+      <p>Die Basisfragen werden bei jedem Gemba Walk durchgeführt. Besprecht die Frequenz mit eurem lokalen RSM. · Verfügbare Fragen: <strong>40</strong></p>
+    </div>
+
+    <!-- KATEGORIE 1: Außenbereich / Perimeter -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num">1</div>
+        <div>
+          <h3>Außenbereich der Liegenschaft / Perimeter</h3>
+          <div class="cat-scope">Scope: Außenbereich (Zaun, Straße, öffentlicher Bereich, Parkplatz) · Fokus: Zutritt zum Gelände, Außenwirkung, PKW &amp; LKW-Einfahrt</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:120px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:120px">Anmerkung</th>
+              <th style="min-width:100px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-b-1-1">
+              <td class="q-num">1.1</td>
+              <td class="q-text">
+                <strong>Aufgabe: Umlaufen des Perimeters</strong><br>
+                Gibt es offene Bereiche im Außenperimeter bzw. am Außenzaun, welche frei durchlaufen werden können, sodass das Betriebsgelände ohne Aufwand betreten werden kann? (Baustellen, neue Zugänge, Gerüste, etc.)
+                <div class="q-example">⚠️ Loch im Zaun, bröckelige Mauer, unbefestigter Bauzaun</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-1">
+                <label><input type="radio" name="b-1-1" value="1" onchange="setFinding('b-1-1',1)"><span class="radio-dot f1-label" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-1" value="2" onchange="setFinding('b-1-1',2)"><span class="radio-dot f2-label" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-1" value="3" onchange="setFinding('b-1-1',3)"><span class="radio-dot f3-label" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-2">
+              <td class="q-num">1.2</td>
+              <td class="q-text">
+                Sind Zaunelemente, Stäbe, Fundamente, etc. beschädigt oder verbogen? Sind Zeichen von Vandalismus oder Verschmutzung zu erkennen (Müll, unbekannte Personen, Alkoholflaschen, etc.)?
+                <div class="q-example">⚠️ Ungenehmigte Plakate, Glasflaschen, Scherben, unbekannte Personen, schlechtes Sicherheitsgefühl</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-2">
+                <label><input type="radio" name="b-1-2" value="1" onchange="setFinding('b-1-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-2" value="2" onchange="setFinding('b-1-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-2" value="3" onchange="setFinding('b-1-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-3">
+              <td class="q-num">1.3</td>
+              <td class="q-text">
+                Sind Überstiegshilfen oder Unterkriechmöglichkeiten im Außenbereich in unmittelbarer Nähe des Perimeters vorhanden?
+                <div class="q-example">⚠️ Stromkästen, Bäume, Autos direkt am Zaun, lockere Erde vor dem Zaun</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-3">
+                <label><input type="radio" name="b-1-3" value="1" onchange="setFinding('b-1-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-3" value="2" onchange="setFinding('b-1-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-3" value="3" onchange="setFinding('b-1-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-4">
+              <td class="q-num">1.4</td>
+              <td class="q-text">
+                Sind ungewöhnliche Aufkleber, Poster oder Beschmierungen, die sich gegen BioNTech richten, im Außenbereich feststellbar?
+                <div class="q-example">⚠️ Verunglimpfend, Querdenkerbewegung, Fake News</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-4">
+                <label><input type="radio" name="b-1-4" value="1" onchange="setFinding('b-1-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-4" value="2" onchange="setFinding('b-1-4',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-4" value="3" onchange="setFinding('b-1-4',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-5">
+              <td class="q-num">1.5</td>
+              <td class="q-text">
+                Sind BioNTech-eigene Plakate mit Sicherheitsbezug, Informationsschilder, Kontaktdaten oder dergleichen am Perimeter/Drehkreuz etc. angebracht, die visuell unschön, veraltet oder nicht mehr notwendig sind?
+                <div class="q-example">⚠️ Veraltete Regeln, Zutrittsschilder, veraltete Kontaktdaten, Dopplungen von Schildern</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-5">
+                <label><input type="radio" name="b-1-5" value="1" onchange="setFinding('b-1-5',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-5" value="2" onchange="setFinding('b-1-5',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-5" value="3" onchange="setFinding('b-1-5',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-6">
+              <td class="q-num">1.6</td>
+              <td class="q-text">
+                Sind die Sicherheitsbeleuchtungen am Zaun und im Außenbereich nicht vorhanden oder zu dunkel, sodass es am Perimeter schlecht einsehbare Bereiche gibt, die Vandalismus oder Überstiege vereinfachen?
+                <div class="q-example">⚠️ Dunkle Bereiche, schlecht einsehbare Bereiche</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-6">
+                <label><input type="radio" name="b-1-6" value="1" onchange="setFinding('b-1-6',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-6" value="2" onchange="setFinding('b-1-6',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-6" value="3" onchange="setFinding('b-1-6',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-7">
+              <td class="q-num">1.7</td>
+              <td class="q-text">
+                <strong>Sichtprüfung am Perimeter:</strong> Sind an allen Perimeterelementen die notwendigen Sensorik-Elemente der Zaun- bzw. Einbruchmeldeanlage verbaut oder sind Beschädigungen zu erkennen bzw. fehlen Elemente?
+                <div class="q-example">⚠️ Vibrationsmelder mit lockeren Schrauben oder nicht angebracht, kein Öffnungskontakt an Türen</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-7">
+                <label><input type="radio" name="b-1-7" value="1" onchange="setFinding('b-1-7',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-7" value="2" onchange="setFinding('b-1-7',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-7" value="3" onchange="setFinding('b-1-7',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <!-- Gebäudeaußenhaut -->
+            <tr id="row-b-1-8">
+              <td class="q-num">1.8</td>
+              <td class="q-text">
+                <em style="color:#0f3460;font-size:10px;">Scope: Gebäudeaußenhaut, Notausgänge</em><br>
+                <strong>Sichtprüfung der Gebäudeaußenhaut:</strong> Sind Fenster, Wände oder Türen beschädigt/sabotiert bzw. gibt es Hinweise auf Vandalismus oder Einbruchvorbereitungen?
+                <div class="q-example">⚠️ Kaputte Türgriffe, angelehnte Fenster, Graffiti</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-8">
+                <label><input type="radio" name="b-1-8" value="1" onchange="setFinding('b-1-8',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-8" value="2" onchange="setFinding('b-1-8',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-8" value="3" onchange="setFinding('b-1-8',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-9">
+              <td class="q-num">1.9</td>
+              <td class="q-text">
+                Ist es möglich, insbesondere bei im EG befindlichen Bereichen, Einblicke in Büros, auf Bildschirme, Präsentationen oder Meetingräume zu erhalten, da keine Sichtschutzelemente vorhanden sind?
+                <div class="q-example">⚠️ Einsehbare Meetingbereiche, Bildschirme ablesbar von außen (bes. EG ohne Perimeter)</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-9">
+                <label><input type="radio" name="b-1-9" value="1" onchange="setFinding('b-1-9',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-9" value="2" onchange="setFinding('b-1-9',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-9" value="3" onchange="setFinding('b-1-9',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-10">
+              <td class="q-num">1.10</td>
+              <td class="q-text">
+                Sind Notausgänge von außen oder innen zugestellt oder abgesperrt, sodass diese nicht begangen werden können?
+                <div class="q-example">⚠️ Blockierte Notausgänge, defekte Panikschlösser, zugestellte Fluchtwege</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-10">
+                <label><input type="radio" name="b-1-10" value="1" onchange="setFinding('b-1-10',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-10" value="2" onchange="setFinding('b-1-10',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-10" value="3" onchange="setFinding('b-1-10',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-1-11">
+              <td class="q-num">1.11</td>
+              <td class="q-text">
+                Sind Zufahrten und Aufstellflächen für Feuerwehr und Rettungsdienst nicht ausreichend markiert, zugestellt oder zugeparkt? Sind die BOS-Aufstellflächen für die Feuerwehr erreichbar?
+                <div class="q-example">⚠️ BOS-Aufstellflächen versperrt oder nicht erreichbar</div>
+              </td>
+              <td><div class="finding-group" data-row="b-1-11">
+                <label><input type="radio" name="b-1-11" value="1" onchange="setFinding('b-1-11',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-1-11" value="2" onchange="setFinding('b-1-11',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-1-11" value="3" onchange="setFinding('b-1-11',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- KATEGORIE 2: Zutrittskontrolle & Zufahrtskontrolle -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num">2</div>
+        <div>
+          <h3>Zutrittskontrolle und Zufahrtskontrolle</h3>
+          <div class="cat-scope">Scope: Vor dem Gelände &amp; Gebäude · Fokus: Zufahrt LKW/PKW, Personenverkehr, Front Desk, Zutrittssysteme</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:120px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:120px">Anmerkung</th>
+              <th style="min-width:100px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-b-2-1">
+              <td class="q-num">2.1</td>
+              <td class="q-text">
+                <em style="color:#0f3460;font-size:10px;">Scope: Vor dem Gelände – Zufahrt für Fahrzeuge, LKW, Mitarbeiter-PKW, Behörden, Feuerwehr, Polizei, Rettungsdienst</em><br>
+                <strong>Sichtprüfung (2 Min.):</strong> Kann es im PKW- und LKW-Zufahrtsbereich auf den Perimeter zu unsicheren oder unübersichtlichen Zufahrtssituationen kommen?
+                <div class="q-example">⚠️ Verengung durch Bauzäune, Schutt in der Einfahrt, unpassende Sprechstelle, unsichere Schranke</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-1">
+                <label><input type="radio" name="b-2-1" value="1" onchange="setFinding('b-2-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-1" value="2" onchange="setFinding('b-2-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-1" value="3" onchange="setFinding('b-2-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-2">
+              <td class="q-num">2.2</td>
+              <td class="q-text">
+                <strong>Sichtprüfung (2 Min.):</strong> Kommt es beim Mitarbeiterzugang auf das Betriebsgelände zu unsicheren oder unübersichtlichen Zugangssituationen?
+                <div class="q-example">⚠️ Autos und Fußgänger kreuzen, Fahrradfahrer nutzen Autoschranke, keine klaren Fußwege</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-2">
+                <label><input type="radio" name="b-2-2" value="1" onchange="setFinding('b-2-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-2" value="2" onchange="setFinding('b-2-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-2" value="3" onchange="setFinding('b-2-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-3">
+              <td class="q-num">2.3</td>
+              <td class="q-text">
+                <em style="color:#0f3460;font-size:10px;">Scope: Vor dem Gebäude – Gebäude-Eingangsbereich, Zutrittssysteme &amp; -prozesse, Front Desk</em><br>
+                <strong>Sichtprüfung (2 Min.):</strong> Gibt es bei der Zugangskontrolle für Personen in die Gebäude unsichere Situationen und technische oder organisatorische Probleme?
+                <div class="q-example">⚠️ Tailgating, Hochsicherheitsbereiche offen, defekte Türschließer, Türen offengehalten, schwergängige Drehkreuze, Ausweis weitergeben</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-3">
+                <label><input type="radio" name="b-2-3" value="1" onchange="setFinding('b-2-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-3" value="2" onchange="setFinding('b-2-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-3" value="3" onchange="setFinding('b-2-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-4">
+              <td class="q-num">2.4</td>
+              <td class="q-text">
+                Werden Besucherausweise sowie Fremdfirmenausweise ordnungsgemäß vergeben, getragen und bei Verlassen der Liegenschaft wieder eingesammelt?
+                <div class="q-example">⚠️ Besucher tragen keinen Ausweis, Ausweise werden nicht zurückgegeben, kein Abgleich bei Rückgabe</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-4">
+                <label><input type="radio" name="b-2-4" value="1" onchange="setFinding('b-2-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-4" value="2" onchange="setFinding('b-2-4',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-4" value="3" onchange="setFinding('b-2-4',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-5">
+              <td class="q-num">2.5</td>
+              <td class="q-text">
+                Stehen Nebeneingänge zum Gebäude offen, wie bspw. Notausgänge oder Warenanlieferungen, über welche das Gebäude ohne Zutrittskontrolle betreten werden kann?
+                <div class="q-example">⚠️ Offene Fluchttüren oder Warenanlieferungen ohne Zutrittskontrolle bzw. Personenvereinzelung</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-5">
+                <label><input type="radio" name="b-2-5" value="1" onchange="setFinding('b-2-5',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-5" value="2" onchange="setFinding('b-2-5',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-5" value="3" onchange="setFinding('b-2-5',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-6">
+              <td class="q-num">2.6</td>
+              <td class="q-text">
+                Tragen alle sichtbaren Mitarbeiter und Besucher ihren Ausweis sichtbar am Körper? Werden Mitarbeiter ohne sichtbaren Ausweis von Kollegen angesprochen?
+                <div class="q-example">⚠️ Mitarbeiter ohne Ausweis, Ausweis in der Tasche, kein gegenseitiges Ansprechen</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-6">
+                <label><input type="radio" name="b-2-6" value="1" onchange="setFinding('b-2-6',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-6" value="2" onchange="setFinding('b-2-6',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-6" value="3" onchange="setFinding('b-2-6',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-7">
+              <td class="q-num">2.7</td>
+              <td class="q-text">
+                Werden externe Besucher, Lieferanten und Fremdfirmen ohne ordnungsgemäße Anmeldung (Quentic-Anmeldung, Sicherheitsunterweisung, Fremdfirmenausweise) auf das Gelände gelassen?
+                <div class="q-example">⚠️ Kein Quentic-Laptop vor Ort, Handwerker ohne Anmeldung, Besucher ohne Ansprechpartner, kein Dokumentenabgleich</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-7">
+                <label><input type="radio" name="b-2-7" value="1" onchange="setFinding('b-2-7',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-7" value="2" onchange="setFinding('b-2-7',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-7" value="3" onchange="setFinding('b-2-7',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-8">
+              <td class="q-num">2.8</td>
+              <td class="q-text">
+                Werden Besucher nach der Anmeldung am Front Desk ordnungsgemäß begleitet und nicht alleine im Gebäude gelassen?
+                <div class="q-example">⚠️ Besucher wandern unkontrolliert durch das Gebäude, kein Escort durch Gastgeber</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-8">
+                <label><input type="radio" name="b-2-8" value="1" onchange="setFinding('b-2-8',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-8" value="2" onchange="setFinding('b-2-8',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-8" value="3" onchange="setFinding('b-2-8',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-2-9">
+              <td class="q-num">2.9</td>
+              <td class="q-text">
+                <strong>Test der Intercom-Lautsprecher</strong> an den Personen-Eingangsbereichen: Ist die Reaktion und das Verständnis mit dem ext. Sicherheitsdienstleister oder dem Front Desk über das Intercom-System nicht möglich?
+                <div class="q-example">⚠️ Security/Front Desk von außen nicht erreichbar, defekte Intercom, keine Antwort, nicht besetzt</div>
+              </td>
+              <td><div class="finding-group" data-row="b-2-9">
+                <label><input type="radio" name="b-2-9" value="1" onchange="setFinding('b-2-9',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-2-9" value="2" onchange="setFinding('b-2-9',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-2-9" value="3" onchange="setFinding('b-2-9',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- KATEGORIE 3: Innenbereich / Technische Systeme -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num">3</div>
+        <div>
+          <h3>Innenbereich der Liegenschaft &amp; Technische Systeme</h3>
+          <div class="cat-scope">Scope: Gebäude-Innenbereich, Winguard, CCTV, Alarmanlage · Fokus: Diebstahl, unberechtigter Zutritt, Sabotage</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:120px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:120px">Anmerkung</th>
+              <th style="min-width:100px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-b-3-1">
+              <td class="q-num">3.1</td>
+              <td class="q-text">
+                <em style="color:#0f3460;font-size:10px;">Scope: Im Gebäude – Schutz vor Diebstahl, unberechtigtem Zutritt, Sabotage</em><br>
+                Sind besonders schützenswerte Räume (Zonierungskonzept – Schutzstufe rot) ohne Personenvereinzelung bzw. ohne Zutrittskontrolle betretbar?
+                <div class="q-example">⚠️ Aufgekeilte Türen, keine Zutrittskontrolle vor Laboren, offene Technikräume, freie Dokumentenlager</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-1">
+                <label><input type="radio" name="b-3-1" value="1" onchange="setFinding('b-3-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-1" value="2" onchange="setFinding('b-3-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-1" value="3" onchange="setFinding('b-3-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder...">
+              </td>
+            </tr>
+            <tr id="row-b-3-2">
+              <td class="q-num">3.2</td>
+              <td class="q-text">
+                Sind Flucht- und Rettungswege nicht oder nur begrenzt begehbar, insbesondere Fluchtwege im Erdgeschoss und der Zugang zu Treppenhäusern?
+                <div class="q-example">⚠️ Zugestellte Fluchtwege, abgesperrte Türen, Kartons im Fluchtweg, brennbare Materialien im Fluchttreppenhaus</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-2">
+                <label><input type="radio" name="b-3-2" value="1" onchange="setFinding('b-3-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-2" value="2" onchange="setFinding('b-3-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-2" value="3" onchange="setFinding('b-3-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-3">
+              <td class="q-num">3.3</td>
+              <td class="q-text">
+                Werden beim Durchführen des Gemba Walks verlassene Arbeitsplätze mit nicht gesperrten Bildschirmen / Laptops festgestellt, wodurch digitale Dokumente und Mitarbeiteraccounts ungeschützt sind?
+                <div class="q-example">⚠️ Laptops offen einsehbar und ungesperrt für Kaffee- oder Toilettenpausen zurückgelassen</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-3">
+                <label><input type="radio" name="b-3-3" value="1" onchange="setFinding('b-3-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-3" value="2" onchange="setFinding('b-3-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-3" value="3" onchange="setFinding('b-3-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-4">
+              <td class="q-num">3.4</td>
+              <td class="q-text">
+                Werden beim Durchführen des Gemba Walks physische vertrauliche Dokumente festgestellt, die unbeaufsichtigt liegen gelassen wurden? (z.B. am Drucker, Arbeitsplatz, Whiteboards, Meetingräume)
+                <div class="q-example">⚠️ Ausdrucke mit sensiblen Daten am Drucker, Präsentationsunterlagen im Meetingraum offen liegen gelassen</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-4">
+                <label><input type="radio" name="b-3-4" value="1" onchange="setFinding('b-3-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-4" value="2" onchange="setFinding('b-3-4',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-4" value="3" onchange="setFinding('b-3-4',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-5">
+              <td class="q-num">3.5</td>
+              <td class="q-text">
+                Gibt es Hinweise auf Sabotageakte bzw. absichtliche Beschädigung von Sicherheitseinrichtungen, z.B. an Feuerlöschern, Notausgangstüren, Defibrillatoren, etc.?
+                <div class="q-example">⚠️ Offene Kühlschränke, verdrehte/abgeklebte Kameras, Feuerlöscher mit abgezogenen Sicherheitspins, Notfalltaster</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-5">
+                <label><input type="radio" name="b-3-5" value="1" onchange="setFinding('b-3-5',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-5" value="2" onchange="setFinding('b-3-5',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-5" value="3" onchange="setFinding('b-3-5',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-6">
+              <td class="q-num">3.6</td>
+              <td class="q-text">
+                <em style="color:#0f3460;font-size:10px;">Scope: Winguard prüfen – Einsatzbereitschaft der technischen Alarmsysteme sicherstellen</em><br>
+                Sind die Monitore / Bildschirme des Winguard-Systems eingeschaltet, funktionsfähig und zeigen aktuelle Kamerabilder?
+                <div class="q-example">⚠️ Schwarze Bildschirme, eingefrorene Bilder, Monitore ausgeschaltet</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-6">
+                <label><input type="radio" name="b-3-6" value="1" onchange="setFinding('b-3-6',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-6" value="2" onchange="setFinding('b-3-6',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-6" value="3" onchange="setFinding('b-3-6',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-7">
+              <td class="q-num">3.7</td>
+              <td class="q-text">
+                <strong>Technische Einsatzbereitschaft:</strong> Gibt es aktuell Hardware-/Technik-Probleme in Winguard (Kameras, Bildschirme, etc.), welche eine Verwendung erschweren oder unmöglich machen?
+                <div class="q-example">⚠️ Langsame oder instabile Verbindung, Verbindungsabbrüche, Softwareprobleme</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-7">
+                <label><input type="radio" name="b-3-7" value="1" onchange="setFinding('b-3-7',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-7" value="2" onchange="setFinding('b-3-7',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-7" value="3" onchange="setFinding('b-3-7',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-8">
+              <td class="q-num">3.8</td>
+              <td class="q-text">
+                Sind die Kameras des CCTV-Systems durch Staub, Dreck oder Gegenstände vor der Linse zugestellt (Planen, Baugerüste, etc.) bzw. nicht einsatzbereit?
+                <div class="q-example">⚠️ Staub oder Abdeckungen auf der Linse, Kamera verdreht oder abgeklebt</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-8">
+                <label><input type="radio" name="b-3-8" value="1" onchange="setFinding('b-3-8',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-8" value="2" onchange="setFinding('b-3-8',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-8" value="3" onchange="setFinding('b-3-8',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-9">
+              <td class="q-num">3.9</td>
+              <td class="q-text">
+                Sind Alarmweiterleitungen von Security-Alarmsystemen zu lokalen Sicherheitskräften und zum GSOC defekt oder nicht vorhanden?
+                <div class="q-example">⚠️ Lokale Alarme werden beim ext. Sicherheitsdienst nicht angezeigt, GSOC wird im Alarmfall nicht automatisch informiert</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-9">
+                <label><input type="radio" name="b-3-9" value="1" onchange="setFinding('b-3-9',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-9" value="2" onchange="setFinding('b-3-9',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-9" value="3" onchange="setFinding('b-3-9',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-10">
+              <td class="q-num">3.10</td>
+              <td class="q-text">
+                Sind Alarmweiterleitungen von Brand-Alarmsystemen zu lokalen Sicherheitskräften und zum GSOC defekt oder nicht vorhanden, sodass im Brandfall keine oder verspätete Information erfolgt?
+                <div class="q-example">⚠️ Brandalarm wird beim Sicherheitsdienst nicht angezeigt, GSOC wird nicht automatisch informiert</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-10">
+                <label><input type="radio" name="b-3-10" value="1" onchange="setFinding('b-3-10',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-10" value="2" onchange="setFinding('b-3-10',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-10" value="3" onchange="setFinding('b-3-10',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-3-11">
+              <td class="q-num">3.11</td>
+              <td class="q-text">
+                <strong>Organisatorische Einsatzbereitschaft:</strong> Hat der externe Sicherheitsdienst organisatorische Probleme bei der Bedienung des Winguard-Systems (Videoaufnahmen zurückspulen, Kamera-Bilder anhalten, Alarme bearbeiten, etc.)?
+                <div class="q-example">⚠️ Kein passendes Login, fehlende Schulungen für Winguard-Bedienung</div>
+              </td>
+              <td><div class="finding-group" data-row="b-3-11">
+                <label><input type="radio" name="b-3-11" value="1" onchange="setFinding('b-3-11',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-3-11" value="2" onchange="setFinding('b-3-11',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-3-11" value="3" onchange="setFinding('b-3-11',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- KATEGORIE 4: Gesprächsleitfaden ext. Sicherheitsdienst -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num">4</div>
+        <div>
+          <h3>Gesprächsleitfaden – Ext. Sicherheitsdienstleister</h3>
+          <div class="cat-scope">Scope: Ext. Sicherheitsdienst vor Ort in deren Räumlichkeiten antreffen, operative Aufgaben besprechen</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:120px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:120px">Anmerkung</th>
+              <th style="min-width:100px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-b-4-1">
+              <td class="q-num">4.1</td>
+              <td class="q-text">
+                <strong>Ablaufen / Gespräch mit Sicherheitsdienst (Coredinate-Bestreifung):</strong> Sind die aktuellen Patrouillen-Routen und Frequenzen nicht mehr sinnvoll, da wichtige Bereiche nicht begangen werden oder der Weg zu lang ist?
+                <div class="q-example">⚠️ Wichtige Bereiche werden nicht bestreift, Coredinate-Stechpunkte wurden entfernt</div>
+              </td>
+              <td><div class="finding-group" data-row="b-4-1">
+                <label><input type="radio" name="b-4-1" value="1" onchange="setFinding('b-4-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-4-1" value="2" onchange="setFinding('b-4-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-4-1" value="3" onchange="setFinding('b-4-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-4-2">
+              <td class="q-num">4.2</td>
+              <td class="q-text">
+                Ist der Raum / Container des Sicherheitsdienstleisters und der Fußweg dorthin in einem unordentlichen oder unsicheren Zustand?
+                <div class="q-example">⚠️ Unordnung, Gegenstände ohne Dienstbezug, Rutsch- und Stolpergefahren</div>
+              </td>
+              <td><div class="finding-group" data-row="b-4-2">
+                <label><input type="radio" name="b-4-2" value="1" onchange="setFinding('b-4-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-4-2" value="2" onchange="setFinding('b-4-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-4-2" value="3" onchange="setFinding('b-4-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-4-3">
+              <td class="q-num">4.3</td>
+              <td class="q-text">
+                Sind die Arbeitsbedingungen im Raum / Container problematisch? (Heizung, Klima, Beleuchtung etc.)
+                <div class="q-example">⚠️ Im Winter keine Heizung, im Sommer hohe Temperaturen ohne mobile Klimaanlage</div>
+              </td>
+              <td><div class="finding-group" data-row="b-4-3">
+                <label><input type="radio" name="b-4-3" value="1" onchange="setFinding('b-4-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-4-3" value="2" onchange="setFinding('b-4-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-4-3" value="3" onchange="setFinding('b-4-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-4-4">
+              <td class="q-num">4.4</td>
+              <td class="q-text">
+                <strong>Teamdynamik, Motivation und Konfliktmanagement:</strong> Gibt es erkennbare Spannungen oder Konflikte im Team, welche die Leistung des ext. Sicherheitsdienstes einschränken könnten?
+                <div class="q-example">⚠️ Negatives Arbeitsklima, Mitarbeitende fühlen sich nicht ausreichend unterstützt oder wertgeschätzt</div>
+              </td>
+              <td><div class="finding-group" data-row="b-4-4">
+                <label><input type="radio" name="b-4-4" value="1" onchange="setFinding('b-4-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-4-4" value="2" onchange="setFinding('b-4-4',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-4-4" value="3" onchange="setFinding('b-4-4',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+              </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- KATEGORIE 5: Monatlicher Gesprächsleitfaden ext. Sicherheitsdienst -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num">5</div>
+        <div>
+          <h3>Monatlicher Gesprächsleitfaden – Ext. Sicherheitsdienst</h3>
+          <div class="cat-scope">Scope: Monatlicher kurzer mündlicher Austausch mit dem vor Ort aktiven ext. Sicherheitsdienst</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:120px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:120px">Anmerkung</th>
+              <th style="min-width:100px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-b-5-1">
+              <td class="q-num">5.1</td>
+              <td class="q-text">
+                <strong>Gespräch mit dem ext. Sicherheitsdienst:</strong> Gab es sicherheitsrelevante Auffälligkeiten / Beobachtungen oder Hinweise auf Probleme im Security-Kontext?
+                <div class="q-example">⚠️ Technische/organisatorische Probleme an Zutrittssystemen, unbekannte Personen, Berichte von Mitarbeitern</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-1">
+                <label><input type="radio" name="b-5-1" value="1" onchange="setFinding('b-5-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-1" value="2" onchange="setFinding('b-5-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-1" value="3" onchange="setFinding('b-5-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-5">
+              <td class="q-num">5.5</td>
+              <td class="q-text">
+                <strong>Prozess der Kontaktaufnahme:</strong> Sind die relevanten Ansprechpartner im Notfall unbekannt? (GSOC, Rufbereitschaft FM, SecOps, Behörden)
+                <div class="q-example">⚠️ GSOC-Nummer nicht auswendig bekannt, keine ausgedruckten Notfalllisten vor Ort</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-5">
+                <label><input type="radio" name="b-5-5" value="1" onchange="setFinding('b-5-5',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-5" value="2" onchange="setFinding('b-5-5',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-5" value="3" onchange="setFinding('b-5-5',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-6">
+              <td class="q-num">5.6</td>
+              <td class="q-text">
+                <strong>Prozess medizinischer Notfall:</strong> Ist der Handlungsablauf im Erste-Hilfe-Fall / medizinischen Notfall unbekannt oder kann nicht beschrieben werden? (RTW-Einfahrt, Begleitung, GSOC-Info, etc.)
+                <div class="q-example">⚠️ Keine GSOC-Information im Erste-Hilfe-Fall, keine Ersthelfer-Listen vor Ort, kein Durchgang für Rettungsdienst</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-6">
+                <label><input type="radio" name="b-5-6" value="1" onchange="setFinding('b-5-6',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-6" value="2" onchange="setFinding('b-5-6',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-6" value="3" onchange="setFinding('b-5-6',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-7">
+              <td class="q-num">5.7</td>
+              <td class="q-text">
+                <strong>Prozess Evakuierung:</strong> Ist der Handlungsablauf im Brandfall / bei Evakuierung unbekannt? (Feuerwehr-Einfahrt, GSOC-Info, Evakuierung unterstützen, Defibrillator-Standort, Ersthelfer vor Ort?)
+                <div class="q-example">⚠️ Kein Wissen über Evakuierungsprozess, keine Ersthelferliste ausgehängt, Defibrillator-Standort unbekannt</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-7">
+                <label><input type="radio" name="b-5-7" value="1" onchange="setFinding('b-5-7',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-7" value="2" onchange="setFinding('b-5-7',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-7" value="3" onchange="setFinding('b-5-7',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-8">
+              <td class="q-num">5.8</td>
+              <td class="q-text">
+                <em style="color:#0f3460;font-size:10px;">Scope: Technische Ausstattung des ext. Sicherheitsdienstes vor Ort</em><br>
+                Gibt es Probleme mit den PCs / iPads vor Ort für die korrekte Anmeldung und das Managen der Zufahrt und der Zutritte? (Quentic-App, TimeStamp-App, Whitelist, etc.)
+                <div class="q-example">⚠️ iPads defekt, Zugänge in Quentic/Teams offline, Besucher-Whitelist nicht prüfbar</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-8">
+                <label><input type="radio" name="b-5-8" value="1" onchange="setFinding('b-5-8',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-8" value="2" onchange="setFinding('b-5-8',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-8" value="3" onchange="setFinding('b-5-8',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-9">
+              <td class="q-num">5.9</td>
+              <td class="q-text">
+                Gibt es Probleme mit Coredinate inkl. der Coredinate-App für Streifenrundgänge und dem Reporting von Incidents?
+                <div class="q-example">⚠️ Coredinate-Account nicht einloggbar, Kamera defekt, unscharfe Bilder in Berichten</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-9">
+                <label><input type="radio" name="b-5-9" value="1" onchange="setFinding('b-5-9',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-9" value="2" onchange="setFinding('b-5-9',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-9" value="3" onchange="setFinding('b-5-9',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-10">
+              <td class="q-num">5.10</td>
+              <td class="q-text">
+                Gibt es bei der Verwendung (technisch) oder Verwaltung (organisatorisch) des TRAKA-Schranks Probleme?
+                <div class="q-example">⚠️ Schlüssel verschwunden, technische Probleme, kein Zugriff auf das System</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-10">
+                <label><input type="radio" name="b-5-10" value="1" onchange="setFinding('b-5-10',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-10" value="2" onchange="setFinding('b-5-10',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-10" value="3" onchange="setFinding('b-5-10',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-11">
+              <td class="q-num">5.11</td>
+              <td class="q-text">
+                <strong>Schlüsselmanagement:</strong> Sind notwendige Schlüssel nicht vorhanden, sodass im Gefahrenfall die Liegenschaft mit einem physischen Schlüssel nicht betreten werden kann?
+                <div class="q-example">⚠️ Generalschlüssel nicht vor Ort, kann nicht entnommen werden, Prozess unbekannt</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-11">
+                <label><input type="radio" name="b-5-11" value="1" onchange="setFinding('b-5-11',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-11" value="2" onchange="setFinding('b-5-11',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-11" value="3" onchange="setFinding('b-5-11',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-12">
+              <td class="q-num">5.12</td>
+              <td class="q-text">
+                <strong>Funk-Kommunikationscheck (bitte ans GSOC durchführen lassen):</strong> Gibt es Probleme mit den vor Ort eingesetzten Funk-Geräten im organisatorischen oder technischen Bereich?
+                <div class="q-example">⚠️ Funkgeräte nicht sofort einsatzbereit, technische/Software-Probleme, Funksprüche kommen nicht an</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-12">
+                <label><input type="radio" name="b-5-12" value="1" onchange="setFinding('b-5-12',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-12" value="2" onchange="setFinding('b-5-12',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-12" value="3" onchange="setFinding('b-5-12',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-b-5-13">
+              <td class="q-num">5.13</td>
+              <td class="q-text">
+                Funktionieren alle weiteren technischen Geräte des ext. Sicherheitsdienstes, welche für die Aufgaben vor Ort notwendig sind? (Taschenlampe, Fernbedienung für Schranken, Systempanels, etc.)
+                <div class="q-example">⚠️ Schrankenfernbedienung defekt, Taschenlampe ohne Batterien, Systempanel nicht bedienbar</div>
+              </td>
+              <td><div class="finding-group" data-row="b-5-13">
+                <label><input type="radio" name="b-5-13" value="1" onchange="setFinding('b-5-13',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="b-5-13" value="2" onchange="setFinding('b-5-13',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="b-5-13" value="3" onchange="setFinding('b-5-13',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- END TAB BASIS -->
+
+  <!-- ====================================================== -->
+  <!-- TAB 2: ERWEITERTER GEMBA                               -->
+  <!-- ====================================================== -->
+  <div class="tab-content" id="tab-erweitert">
+    <div class="section-header">
+      <h2>Erweiterter Gemba Walk <span class="freq-badge">📅 QUARTALSWEISE</span></h2>
+      <p>Tiefergehende Fragen, die weniger frequentiert erhoben werden. Beinhaltet Gespräche mit Abteilungsleitern und weiteren Stakeholdern. · Verfügbare Fragen: <strong>19</strong></p>
+    </div>
+
+    <!-- E-KAT 1: Gespräch Front Desk -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num" style="background:#e94560;">E1</div>
+        <div>
+          <h3>Gespräch Front Desk</h3>
+          <div class="cat-scope">Direkte Ansprache der Front Desk Mitarbeiter vor Ort / ggf. über das Front Desk Team / Governance</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="min-width:110px">Gesprächspartner</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:110px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:110px">Anmerkung</th>
+              <th style="min-width:90px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-e-1-1">
+              <td class="q-num">1.1</td>
+              <td class="q-text">Gab es in den letzten Wochen sicherheitsrelevante Vorfälle oder Auffälligkeiten am Arbeitsplatz?
+                <div class="q-example">⚠️ Auffällige Personen, merkwürdige Anfragen (z.B. CEO treffen), etc.</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-1-1">
+                <label><input type="radio" name="e-1-1" value="1" onchange="setFinding('e-1-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-1-1" value="2" onchange="setFinding('e-1-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-1-1" value="3" onchange="setFinding('e-1-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-1-2">
+              <td class="q-num">1.2</td>
+              <td class="q-text">Sind die Ansprechpartner für Notfälle (GSOC, ext. Sicherheitsdienst) bekannt und erreichbar?
+                <div class="q-example">⚠️ Front Desk weiß nicht wann/wie das GSOC zu kontaktieren ist</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-1-2">
+                <label><input type="radio" name="e-1-2" value="1" onchange="setFinding('e-1-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-1-2" value="2" onchange="setFinding('e-1-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-1-2" value="3" onchange="setFinding('e-1-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-1-3">
+              <td class="q-num">1.3</td>
+              <td class="q-text">Haben Mitarbeiter Probleme bei der Verwendung von Zutrittskontrollsystemen?
+                <div class="q-example">⚠️ Defekte Türen, Tailgating zu beobachten, etc.</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-1-3">
+                <label><input type="radio" name="e-1-3" value="1" onchange="setFinding('e-1-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-1-3" value="2" onchange="setFinding('e-1-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-1-3" value="3" onchange="setFinding('e-1-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2
+              " placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-1-4">
+              <td class="q-num">1.4</td>
+              <td class="q-text">Gibt es Optimierungsvorschläge seitens des Front Desk für die Sicherheitsprozesse vor Ort?
+                <div class="q-example">⚠️ Umständliche Besucheranmeldung, fehlende Hilfsmittel, unklare Zuständigkeiten</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-1-4">
+                <label><input type="radio" name="e-1-4" value="1" onchange="setFinding('e-1-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-1-4" value="2" onchange="setFinding('e-1-4',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-1-4" value="3" onchange="setFinding('e-1-4',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-KAT 2: Gespräch mit Abteilungsleiter / Mitarbeiter -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num" style="background:#e94560;">E2</div>
+        <div>
+          <h3>Gespräch mit Abteilungsleiter / Mitarbeiter</h3>
+          <div class="cat-scope">Direkte Ansprache von Mitarbeitern oder Abteilungsleitern – zufällig oder gezielt ausgewählt</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="min-width:110px">Gesprächspartner</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:110px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:110px">Anmerkung</th>
+              <th style="min-width:90px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-e-2-1">
+              <td class="q-num">2.1</td>
+              <td class="q-text">Sind Mitarbeiter mit den aktuellen Sicherheitsrichtlinien und -prozessen vertraut? Wurden sie entsprechend geschult?
+                <div class="q-example">⚠️ Unkenntnis über Ausweis-Tragepflicht, Clean Desk Policy, Meldewege bei Vorfällen</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-2-1">
+                <label><input type="radio" name="e-2-1" value="1" onchange="setFinding('e-2-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-2-1" value="2" onchange="setFinding('e-2-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-2-1" value="3" onchange="setFinding('e-2-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-2-2">
+              <td class="q-num">2.2</td>
+              <td class="q-text">Sind Mitarbeiter in der Lage, verdächtige Personen oder Verhaltensweisen zu erkennen und zu melden?
+                <div class="q-example">⚠️ Kein Wissen über Meldeweg, unbekannte Personen werden nicht angesprochen</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-2-2">
+                <label><input type="radio" name="e-2-2" value="1" onchange="setFinding('e-2-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-2-2" value="2" onchange="setFinding('e-2-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-2-2" value="3" onchange="setFinding('e-2-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-2-3">
+              <td class="q-num">2.3</td>
+              <td class="q-text">Haben Mitarbeiter das Gefühl, dass die aktuellen Sicherheitsmaßnahmen ausreichend und angemessen sind?
+                <div class="q-example">⚠️ Gefühl von Unsicherheit, zu viele oder zu wenige Einschränkungen, fehlende Kommunikation über Sicherheitsmaßnahmen</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-2-3">
+                <label><input type="radio" name="e-2-3" value="1" onchange="setFinding('e-2-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-2-3" value="2" onchange="setFinding('e-2-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-2-3" value="3" onchange="setFinding('e-2-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-2-4">
+              <td class="q-num">2.4</td>
+              <td class="q-text">Gibt es Optimierungsvorschläge seitens der Mitarbeiter oder Abteilungsleiter für die Sicherheitsprozesse?
+                <div class="q-example">⚠️ Konkrete Verbesserungsideen, Lücken in bestehenden Prozessen</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-2-4">
+                <label><input type="radio" name="e-2-4" value="1" onchange="setFinding('e-2-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-2-4" value="2" onchange="setFinding('e-2-4',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-2-4" value="3" onchange="setFinding('e-2-4',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- E-KAT 3: Erweiterter Sicherheitscheck -->
+    <div class="category-block">
+      <div class="cat-header" onclick="toggleCat(this)">
+        <div class="cat-num" style="background:#e94560;">E3</div>
+        <div>
+          <h3>Erweiterter Sicherheitscheck – Prozesse &amp; Dokumentation</h3>
+          <div class="cat-scope">Überprüfung von Dokumenten, Plänen, Zertifikaten und übergeordneten Sicherheitsprozessen</div>
+        </div>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="cat-body">
+        <div class="table-scroll">
+        <table class="q-table">
+          <thead>
+            <tr>
+              <th style="width:44px">Nr.</th>
+              <th>Frage</th>
+              <th style="min-width:110px">Gesprächspartner</th>
+              <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+              <th style="min-width:110px">Folgeaktivität</th>
+              <th style="width:70px">Ticket<br>erstellt</th>
+              <th style="width:70px">Beständiges<br>Problem</th>
+              <th style="min-width:110px">Anmerkung</th>
+              <th style="min-width:90px">Stakeholder</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="row-e-3-1">
+              <td class="q-num">3.1</td>
+              <td class="q-text">Sind Notfallpläne, Evakuierungspläne und Lagebeurteilungen aktuell und für alle relevanten Personen zugänglich?
+                <div class="q-example">⚠️ Veraltete Pläne, falsche Ansprechpartner, nicht auffindbare Dokumente</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-3-1">
+                <label><input type="radio" name="e-3-1" value="1" onchange="setFinding('e-3-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-3-1" value="2" onchange="setFinding('e-3-1',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-3-1" value="3" onchange="setFinding('e-3-1',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-3-2">
+              <td class="q-num">3.2</td>
+              <td class="q-text">Sind die Prüfberichte und Wartungsberichte der sicherheitstechnischen Anlagen aktuell und vollständig?
+                <div class="q-example">⚠️ Überprüfungsprotokolle fehlen, Wartungsintervalle überschritten, Mängel nicht behoben</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-3-2">
+                <label><input type="radio" name="e-3-2" value="1" onchange="setFinding('e-3-2',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-3-2" value="2" onchange="setFinding('e-3-2',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-3-2" value="3" onchange="setFinding('e-3-2',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+            <tr id="row-e-3-3">
+              <td class="q-num">3.3</td>
+              <td class="q-text">Wurden alle offenen Maßnahmen aus dem letzten Gemba Walk nachverfolgt und abgeschlossen?
+                <div class="q-example">⚠️ Offene Tickets nicht bearbeitet, keine Rückmeldung zu Maßnahmen, veraltete Findings</div>
+              </td>
+              <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
+              <td><div class="finding-group" data-row="e-3-3">
+                <label><input type="radio" name="e-3-3" value="1" onchange="setFinding('e-3-3',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+                <label><input type="radio" name="e-3-3" value="2" onchange="setFinding('e-3-3',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+                <label><input type="radio" name="e-3-3" value="3" onchange="setFinding('e-3-3',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+              </div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Handlung..."></textarea></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+              <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+              <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- END TAB ERWEITERT -->
+
+  <!-- ====================================================== -->
+  <!-- TAB 3: INDIVIDUELLER BEREICH                           -->
+  <!-- ====================================================== -->
+  <div class="tab-content" id="tab-individuell">
+    <div class="section-header">
+      <h2>Individueller Bereich <span class="freq-badge">✏️ STANDORTSPEZIFISCH</span></h2>
+      <p>Hier können standortspezifische oder situative Zusatzfragen erfasst werden, die nicht im Standardkatalog enthalten sind.</p>
+    </div>
+    <div style="padding:20px 28px 0;">
+      <div class="table-scroll">
+      <table class="ind-table" id="ind-table">
+        <thead>
+          <tr>
+            <th style="width:44px">Nr.</th>
+            <th>Eigene Frage / Beobachtung</th>
+            <th style="width:90px">Finding<br><span style="font-weight:400;color:#aaa">1 · 2 · 3</span></th>
+            <th style="min-width:120px">Folgeaktivität</th>
+            <th style="width:70px">Ticket<br>erstellt</th>
+            <th style="width:70px">Beständiges<br>Problem</th>
+            <th style="min-width:120px">Anmerkung</th>
+            <th style="min-width:100px">Stakeholder</th>
+            <th style="width:50px"></th>
+          </tr>
+        </thead>
+        <tbody id="ind-tbody">
+          <!-- Zeilen werden per JS hinzugefügt -->
+        </tbody>
+      </table>
+      </div>
+      <button class="add-row-btn" onclick="addIndRow()">＋ Neue Zeile hinzufügen</button>
+    </div>
+    <div style="height:20px;"></div>
+  </div><!-- END TAB INDIVIDUELL -->
+
+  <!-- ====================================================== -->
+  <!-- TAB 4: AUSWERTUNG & DASHBOARD                          -->
+  <!-- ====================================================== -->
+  <div class="tab-content" id="tab-auswertung">
+    <div class="dashboard">
+      <h3>📊 Auswertung &amp; Dashboard</h3>
+
+      <!-- KPI Kacheln -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-total" style="color:#0f3460;">0</div>
+          <div class="kpi-lbl">Fragen bewertet</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-f1" style="color:#27ae60;">0</div>
+          <div class="kpi-lbl">Finding 1 – OK</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-f2" style="color:#f39c12;">0</div>
+          <div class="kpi-lbl">Finding 2 – Minor</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-f3" style="color:#e74c3c;">0</div>
+          <div class="kpi-lbl">Finding 3 – Major</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-score" style="color:#0f3460;">–</div>
+          <div class="kpi-lbl">Security Score (%)</div>
+        </div>
+      </div>
+
+      <!-- Fortschrittsbalken -->
+      <div class="score-grid">
+        <div class="score-col">
+          <h4>Bewertungsverteilung</h4>
+          <div class="score-item">
+            <span class="s-label">✅ Finding 1 (OK)</span>
+            <span class="s-value green" id="dash-f1">0</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar green" id="bar-f1" style="width:0%"></div></div>
+          <div class="score-item" style="margin-top:10px;">
+            <span class="s-label">⚠️ Finding 2 (Minor)</span>
+            <span class="s-value yellow" id="dash-f2">0</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar yellow" id="bar-f2" style="width:0%"></div></div>
+          <div class="score-item" style="margin-top:10px;">
+            <span class="s-label">🚨 Finding 3 (Major)</span>
+            <span class="s-value red" id="dash-f3">0</span>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar red" id="bar-f3" style="width:0%"></div></div>
+        </div>
+
+        <div class="score-col">
+          <h4>Basisfragen – Kategorien</h4>
+          <div class="score-item"><span class="s-label">Außenbereich (Kat. 1)</span><span class="s-value blue" id="ds-k1">–</span></div>
+          <div class="score-item"><span class="s-label">Zutrittskontrolle (Kat. 2)</span><span class="s-value blue" id="ds-k2">–</span></div>
+          <div class="score-item"><span class="s-label">Innenbereich / Technik (Kat. 3)</span><span class="s-value blue" id="ds-k3">–</span></div>
+          <div class="score-item"><span class="s-label">Sicherheitsdienst (Kat. 4)</span><span class="s-value blue" id="ds-k4">–</span></div>
+          <div class="score-item"><span class="s-label">Monatl. Gespräch (Kat. 5)</span><span class="s-value blue" id="ds-k5">–</span></div>
+        </div>
+
+        <div class="score-col">
+          <h4>Maßnahmen-Tracking</h4>
+          <div class="score-item"><span class="s-label">🎫 Tickets erstellt</span><span class="s-value blue" id="ds-tickets">0</span></div>
+          <div class="score-item"><span class="s-label">🔁 Beständige Probleme</span><span class="s-value red" id="ds-persistent">0</span></div>
+          <div class="score-item"><span class="s-label">📋 Offene Findings (2+3)</span><span class="s-value yellow" id="ds-open">0</span></div>
+          <div class="score-item"><span class="s-label">🔍 Erw. Gemba Findings</span><span class="s-value blue" id="ds-erw">0</span></div>
+        </div>
+
+        <div class="score-col">
+          <h4>Gesamtstatus</h4>
+          <div style="text-align:center;padding:16px 0;">
+            <div id="status-indicator" style="width:80px;height:80px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:32px;background:#e8e8e8;">–</div>
+            <div id="status-label" style="font-size:13px;font-weight:700;color:#888;">Noch keine Bewertungen</div>
+            <div id="status-desc" style="font-size:10px;color:#aaa;margin-top:4px;">Bitte Fragen ausfüllen</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dokumentation -->
+      <div class="doku-card">
+        <h4>📝 Abschluss-Dokumentation</h4>
+        <div class="doku-row">
+          <label>Gesamtbewertung der Liegenschaft:</label>
+          <select id="doku-gesamt" onchange="updateDashboard()">
+            <option value="">– bitte wählen –</option>
+            <option value="sehr_gut">🟢 Sehr gut – keine kritischen Findings</option>
+            <option value="gut">🟡 Gut – vereinzelte Minor Findings</option>
+            <option value="maessig">🟠 Mäßig – mehrere Minor Findings</option>
+            <option value="kritisch">🔴 Kritisch – Major Findings vorhanden</option>
+            <option value="akut">🚨 Akut – sofortiger Handlungsbedarf</option>
+          </select>
+        </div>
+        <div class="doku-row">
+          <label>Nächster geplanter Gemba Walk:</label>
+          <input type="date" id="doku-next" />
+        </div>
+        <div class="doku-row">
+          <label>Unterschrift / Freigabe durch:</label>
+          <input type="text" id="doku-sign" placeholder="Name RSM / SecOps Lead..." style="min-width:240px;" />
+        </div>
+        <div style="margin-top:14px;">
+          <label style="font-size:12px;color:#555;display:block;margin-bottom:6px;font-weight:600;">Zusammenfassung / Kommentar:</label>
+          <textarea class="q-input" id="doku-summary" rows="4" placeholder="Kurze Zusammenfassung der wichtigsten Erkenntnisse, Trends und Empfehlungen aus diesem Gemba Walk..." style="width:100%;"></textarea>
+        </div>
+        <div id="acute-box" class="acute-alert" style="display:none;">
+          <span>🚨</span>
+          <span>ACHTUNG: Es wurden Major Findings (Wert 3) erfasst – sofortige Eskalation und Maßnahmen erforderlich! Bitte GSOC und RSM umgehend informieren.</span>
+        </div>
+      </div>
+
+      <!-- Major Findings Übersicht -->
+      <div class="doku-card" id="major-findings-box" style="display:none;">
+        <h4>🚨
+        Übersicht Major Findings (Finding 3)</h4>
+        <p style="font-size:11px;color:#888;margin-bottom:12px;">Alle als Finding 3 bewerteten Punkte auf einen Blick:</p>
+        <div id="major-findings-list"></div>
+      </div>
+
+      <!-- Minor Findings Übersicht -->
+      <div class="doku-card" id="minor-findings-box" style="display:none;">
+        <h4>⚠️ Übersicht Minor Findings (Finding 2)</h4>
+        <p style="font-size:11px;color:#888;margin-bottom:12px;">Alle als Finding 2 bewerteten Punkte auf einen Blick:</p>
+        <div id="minor-findings-list"></div>
+      </div>
+
+    </div>
+  </div><!-- END TAB AUSWERTUNG -->
+
+</div><!-- END CONTAINER -->
+
+<!-- ====================================================== -->
+<!-- JAVASCRIPT                                             -->
+<!-- ====================================================== -->
+<script>
+
+  /* ── Tab-Wechsel ── */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+    if (id === 'auswertung') updateDashboard();
+  }
+
+  /* ── Kategorien auf-/zuklappen ── */
+  function toggleCat(header) {
+    const body = header.nextElementSibling;
+    const isCollapsed = header.classList.contains('collapsed');
+    if (isCollapsed) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      setTimeout(() => body.style.maxHeight = 'none', 320);
+      header.classList.remove('collapsed');
+    } else {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        body.style.transition = 'max-height 0.3s ease';
+        body.style.maxHeight = '0px';
+      });
+      header.classList.add('collapsed');
+    }
+  }
+
+  /* ── Finding setzen & Zeile einfärben ── */
+  function setFinding(rowId, value) {
+    const row = document.getElementById('row-' + rowId);
+    if (!row) return;
+    row.classList.remove('finding-1','finding-2','finding-3');
+    row.classList.add('finding-' + value);
+
+    // Radio-Dots aktualisieren
+    const group = row.querySelector('.finding-group');
+    if (group) {
+      group.querySelectorAll('.radio-dot').forEach(dot => {
+        dot.style.background = 'transparent';
+      });
+      const checked = group.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        const dot = checked.nextElementSibling;
+        const colors = { '1': '#27ae60', '2': '#f39c12', '3': '#e74c3c' };
+        dot.style.background = colors[value] || 'transparent';
+      }
+    }
+    updateBadges();
+    updateDashboard();
+  }
+
+  /* ── Badges in Tab-Buttons aktualisieren ── */
+  function updateBadges() {
+    const basisRadios   = document.querySelectorAll('#tab-basis input[type="radio"]:checked');
+    const erwRadios     = document.querySelectorAll('#tab-erweitert input[type="radio"]:checked');
+
+    let bMajor = 0, eMajor = 0;
+    basisRadios.forEach(r => { if (r.value === '3') bMajor++; });
+    erwRadios.forEach(r   => { if (r.value === '3') eMajor++; });
+
+    const bb = document.getElementById('badge-basis');
+    const be = document.getElementById('badge-erweitert');
+    if (bb) {
+      bb.textContent = bMajor;
+      bb.style.background = bMajor > 0 ? '#e74c3c' : '#27ae60';
+    }
+    if (be) {
+      be.textContent = eMajor;
+      be.style.background = eMajor > 0 ? '#e74c3c' : '#f39c12';
+    }
+  }
+
+  /* ── Alle Findings einlesen ── */
+  function getAllFindings() {
+    const results = [];
+    // Basisfragen
+    const basisRows = document.querySelectorAll('#tab-basis tbody tr[id^="row-"]');
+    basisRows.forEach(row => {
+      const checked = row.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        const numEl = row.querySelector('.q-num');
+        const textEl = row.querySelector('.q-text strong') || row.querySelector('.q-text');
+        results.push({
+          section: 'Basis',
+          num: numEl ? numEl.textContent.trim() : '–',
+          text: textEl ? textEl.textContent.trim().substring(0, 80) + '…' : '–',
+          value: parseInt(checked.value)
+        });
+      }
+    });
+    // Erweiterter Gemba
+    const erwRows = document.querySelectorAll('#tab-erweitert tbody tr[id^="row-"]');
+    erwRows.forEach(row => {
+      const checked = row.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        const numEl = row.querySelector('.q-num');
+        const textEl = row.querySelector('.q-text');
+        results.push({
+          section: 'Erweitert',
+          num: numEl ? numEl.textContent.trim() : '–',
+          text: textEl ? textEl.textContent.trim().substring(0, 80) + '…' : '–',
+          value: parseInt(checked.value)
+        });
+      }
+    });
+    // Individueller Bereich
+    const indRows = document.querySelectorAll('#ind-tbody tr');
+    indRows.forEach((row, i) => {
+      const checked = row.querySelector('input[type="radio"]:checked');
+      if (checked) {
+        const textEl = row.querySelector('textarea');
+        results.push({
+          section: 'Individuell',
+          num: 'I.' + (i + 1),
+          text: textEl && textEl.value ? textEl.value.substring(0, 80) + '…' : '(Eigene Frage)',
+          value: parseInt(checked.value)
+        });
+      }
+    });
+    return results;
+  }
+
+  /* ── Kategorie-Score berechnen ── */
+  function getCatScore(prefix) {
+    const rows = document.querySelectorAll(`[id^="row-${prefix}"] input[type="radio"]:checked`);
+    if (rows.length === 0) return '–';
+    let sum = 0;
+    rows.forEach(r => sum += parseInt(r.value));
+    const avg = sum / rows.length;
+    if (avg <= 1.3) return '🟢';
+    if (avg <= 2.0) return '🟡';
+    return '🔴';
+  }
+
+  /* ── Dashboard aktualisieren ── */
+  function updateDashboard() {
+    const all = getAllFindings();
+    const f1 = all.filter(f => f.value === 1).length;
+    const f2 = all.filter(f => f.value === 2).length;
+    const f3 = all.filter(f => f.value === 3).length;
+    const total = all.length;
+
+    // Tickets & persistent
+    const tickets    = document.querySelectorAll('input[type="checkbox"]:nth-child(1):checked').length;
+    const allCbs     = document.querySelectorAll('.checkbox-wrap input[type="checkbox"]');
+    let ticketCount  = 0, persistCount = 0;
+    for (let i = 0; i < allCbs.length; i += 2) {
+      if (allCbs[i]     && allCbs[i].checked)     ticketCount++;
+      if (allCbs[i + 1] && allCbs[i + 1].checked) persistCount++;
+    }
+
+    // Score: (Anzahl F1 * 100 + Anzahl F2 * 50) / (total * 100) * 100
+    let score = total > 0 ? Math.round(((f1 * 100 + f2 * 50) / (total * 100)) * 100) : null;
+
+    // KPI Kacheln
+    document.getElementById('kpi-total').textContent = total;
+    document.getElementById('kpi-f1').textContent    = f1;
+    document.getElementById('kpi-f2').textContent    = f2;
+    document.getElementById('kpi-f3').textContent    = f3;
+    document.getElementById('kpi-score').textContent = score !== null ? score + '%' : '–';
+
+    // Balken
+    document.getElementById('dash-f1').textContent = f1;
+    document.getElementById('dash-f2').textContent = f2;
+    document.getElementById('dash-f3').textContent = f3;
+    if (total > 0) {
+      document.getElementById('bar-f1').style.width = ((f1 / total) * 100) + '%';
+      document.getElementById('bar-f2').style.width = ((f2 / total) * 100) + '%';
+      document.getElementById('bar-f3').style.width = ((f3 / total) * 100) + '%';
+    }
+
+    // Kategorie-Scores
+    document.getElementById('ds-k1').textContent = getCatScore('b-1');
+    document.getElementById('ds-k2').textContent = getCatScore('b-2');
+    document.getElementById('ds-k3').textContent = getCatScore('b-3');
+    document.getElementById('ds-k4').textContent = getCatScore('b-4');
+    document.getElementById('ds-k5').textContent = getCatScore('b-5');
+
+    // Maßnahmen
+    document.getElementById('ds-tickets').textContent    = ticketCount;
+    document.getElementById('ds-persistent').textContent = persistCount;
+    document.getElementById('ds-open').textContent       = f2 + f3;
+    const erwChecked = document.querySelectorAll('#tab-erweitert input[type="radio"]:checked');
+    let erwFindings = 0;
+    erwChecked.forEach(r => { if (r.value !== '1') erwFindings++; });
+    document.getElementById('ds-erw').textContent = erwFindings;
+
+    // Gesamtstatus
+    const indicator  = document.getElementById('status-indicator');
+    const statusLbl  = document.getElementById('status-label');
+    const statusDesc = document.getElementById('status-desc');
+    if (total === 0) {
+      indicator.textContent   = '–';
+      indicator.style.background = '#e8e8e8';
+      statusLbl.textContent   = 'Noch keine Bewertungen';
+      statusDesc.textContent  = 'Bitte Fragen ausfüllen';
+    } else if (f3 > 0) {
+      indicator.textContent   = '🚨';
+      indicator.style.background = '#fce8e8';
+      statusLbl.textContent   = 'KRITISCH';
+      statusDesc.textContent  = f3 + ' Major Finding(s) – sofort eskalieren!';
+      statusLbl.style.color   = '#e74c3c';
+    } else if (f2 > 0) {
+      indicator.textContent   = '⚠️';
+      indicator.style.background = '#fff8e1';
+      statusLbl.textContent   = 'Handlungsbedarf';
+      statusDesc.textContent  = f2 + ' Minor Finding(s) – zeitnah reagieren';
+      statusLbl.style.color   = '#f39c12';
+    } else {
+      indicator.textContent   = '✅';
+      indicator.style.background = '#eafaf1';
+      statusLbl.textContent   = 'Alles in Ordnung';
+      statusDesc.textContent  = 'Alle bewerteten Punkte OK';
+      statusLbl.style.color   = '#27ae60';
+    }
+
+    // Akut-Alert
+    document.getElementById('acute-box').style.display = f3 > 0 ? 'flex' : 'none';
+
+    // Major Findings Box
+    const majorBox  = document.getElementById('major-findings-box');
+    const majorList = document.getElementById('major-findings-list');
+    const majors    = all.filter(f => f.value === 3);
+    if (majors.length > 0) {
+      majorBox.style.display = 'block';
+      majorList.innerHTML = majors.map(f =>
+        `<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #f5d0d0;">
+          <span style="background:#e74c3c;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0;">${f.section} ${f.num}</span>
+          <span style="font-size:12px;color:#333;">${f.text}</span>
+        </div>`
+      ).join('');
+    } else {
+      majorBox.style.display = 'none';
+    }
+
+    // Minor Findings Box
+    const minorBox  = document.getElementById('minor-findings-box');
+    const minorList = document.getElementById('minor-findings-list');
+    const minors    = all.filter(f => f.value === 2);
+    if (minors.length > 0) {
+      minorBox.style.display = 'block';
+      minorList.innerHTML = minors.map(f =>
+        `<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #fdebd0;">
+          <span style="background:#f39c12;color:#fff;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;flex-shrink:0;">${f.section} ${f.num}</span>
+          <span style="font-size:12px;color:#333;">${f.text}</span>
+        </div>`
+      ).join('');
+    } else {
+      minorBox.style.display = 'none';
+    }
+
+    updateBadges();
+  }
+
+  /* ── Individuelle Zeile hinzufügen ── */
+  let indRowCount = 0;
+  function addIndRow() {
+    indRowCount++;
+    const tbody = document.getElementById('ind-tbody');
+    const tr = document.createElement('tr');
+    tr.id = 'ind-row-' + indRowCount;
+    tr.innerHTML = `
+      <td class="q-num" style="color:#e94560;">I.${indRowCount}</td>
+      <td><textarea class="q-input" rows="2" placeholder="Eigene Beobachtung / Frage eingeben..."></textarea></td>
+      <td>
+        <div class="finding-group" data-row="ind-${indRowCount}">
+          <label><input type="radio" name="ind-${indRowCount}" value="1" onchange="setFinding('ind-${indRowCount}',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
+          <label><input type="radio" name="ind-${indRowCount}" value="2" onchange="setFinding('ind-${indRowCount}',2)"><span class="radio-dot" style="color:#f39c12"></span><span class="f2-label">2</span></label>
+          <label><input type="radio" name="ind-${indRowCount}" value="3" onchange="setFinding('ind-${indRowCount}',3)"><span class="radio-dot" style="color:#e74c3c"></span><span class="f3-label">3</span></label>
+        </div>
+      </td>
+      <td><textarea class="q-input" rows="2" placeholder="Handlung / Projekt..."></textarea></td>
+      <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+      <td><div class="checkbox-wrap"><input type="checkbox" onchange="updateDashboard()"></div></td>
+      <td><textarea class="q-input" rows="2" placeholder="Anmerkung..."></textarea></td>
+      <td><input type="text" class="q-input" placeholder="Stakeholder..."></td>
+      <td><button class="remove-row-btn" onclick="removeIndRow('ind-row-${indRowCount}')">✕</button></td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  function removeIndRow(id) {
+    const row = document.getElementById(id);
+    if (row) {
+      row.style.transition = 'opacity 0.2s';
+      row.style.opacity = '0';
+      setTimeout(() => { row.remove(); updateDashboard(); }, 200);
+    }
+  }
+
+  /* ── Datum vorausfüllen ── */
+  window.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0];
+    const metaDate = document.getElementById('meta-date');
+    if (metaDate) metaDate.value = today;
+
+    // Ersten individuellen Row bereitstellen
+    addIndRow();
+
+    // Alle cat-bodies initial auf volle Höhe setzen
+    document.querySelectorAll('.cat-body').forEach(b => {
+      b.style.maxHeight = 'none';
+    });
+  });
+
+</script>
+</body>
+</html>
