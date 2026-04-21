@@ -639,7 +639,7 @@
   <div class="meta-card">
     <div class="field">
       <label>Team</label>
-      <input type="text" id="meta-team" placeholder="z.B. SecOps Mainz" />
+      <input type="text" id="meta-team" placeholder="z.B. Security Team" />
     </div>
     <div class="field">
       <label>Durchführende Person</label>
@@ -693,7 +693,7 @@
   <div class="tab-content active" id="tab-basis">
     <div class="section-header">
       <h2>Basisfragen <span class="freq-badge">📅 MONATLICH</span></h2>
-      <p>Die Basisfragen werden bei jedem Gemba Walk durchgeführt. Besprecht die Frequenz mit eurem lokalen RSM. · Verfügbare Fragen: <strong>40</strong></p>
+      <p>Die Basisfragen werden bei jedem Gemba Walk durchgeführt. Besprecht die Frequenz mit eurem lokalen Security Manager. · Verfügbare Fragen: <strong>40</strong></p>
     </div>
 
     <!-- KATEGORIE 1: Außenbereich / Perimeter -->
@@ -777,8 +777,8 @@
             <tr id="row-b-1-4">
               <td class="q-num">1.4</td>
               <td class="q-text">
-                Sind ungewöhnliche Aufkleber, Poster oder Beschmierungen, die sich gegen BioNTech richten, im Außenbereich feststellbar?
-                <div class="q-example">⚠️ Verunglimpfend, Querdenkerbewegung, Fake News</div>
+                Sind ungewöhnliche Aufkleber, Poster oder Beschmierungen, die sich gegen das Unternehmen richten, im Außenbereich feststellbar?
+                <div class="q-example">⚠️ Verunglimpfend, protest-bezogen, Fake News</div>
               </td>
               <td><div class="finding-group" data-row="b-1-4">
                 <label><input type="radio" name="b-1-4" value="1" onchange="setFinding('b-1-4',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -794,7 +794,7 @@
             <tr id="row-b-1-5">
               <td class="q-num">1.5</td>
               <td class="q-text">
-                Sind BioNTech-eigene Plakate mit Sicherheitsbezug, Informationsschilder, Kontaktdaten oder dergleichen am Perimeter/Drehkreuz etc. angebracht, die visuell unschön, veraltet oder nicht mehr notwendig sind?
+                Sind unternehmenseigene Plakate mit Sicherheitsbezug, Informationsschilder, Kontaktdaten oder dergleichen am Perimeter/Drehkreuz etc. angebracht, die visuell unschön, veraltet oder nicht mehr notwendig sind?
                 <div class="q-example">⚠️ Veraltete Regeln, Zutrittsschilder, veraltete Kontaktdaten, Dopplungen von Schildern</div>
               </td>
               <td><div class="finding-group" data-row="b-1-5">
@@ -1051,8 +1051,8 @@
             <tr id="row-b-2-7">
               <td class="q-num">2.7</td>
               <td class="q-text">
-                Werden externe Besucher, Lieferanten und Fremdfirmen ohne ordnungsgemäße Anmeldung (Quentic-Anmeldung, Sicherheitsunterweisung, Fremdfirmenausweise) auf das Gelände gelassen?
-                <div class="q-example">⚠️ Kein Quentic-Laptop vor Ort, Handwerker ohne Anmeldung, Besucher ohne Ansprechpartner, kein Dokumentenabgleich</div>
+                Werden externe Besucher, Lieferanten und Fremdfirmen ohne ordnungsgemäße Anmeldung (Besuchermanagementsystem, Sicherheitsunterweisung, Fremdfirmenausweise) auf das Gelände gelassen?
+                <div class="q-example">⚠️ Kein Anmelde-Terminal vor Ort, Handwerker ohne Anmeldung, Besucher ohne Ansprechpartner, kein Dokumentenabgleich</div>
               </td>
               <td><div class="finding-group" data-row="b-2-7">
                 <label><input type="radio" name="b-2-7" value="1" onchange="setFinding('b-2-7',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1111,7 +1111,7 @@
         <div class="cat-num">3</div>
         <div>
           <h3>Innenbereich der Liegenschaft &amp; Technische Systeme</h3>
-          <div class="cat-scope">Scope: Gebäude-Innenbereich, Winguard, CCTV, Alarmanlage · Fokus: Diebstahl, unberechtigter Zutritt, Sabotage</div>
+          <div class="cat-scope">Scope: Gebäude-Innenbereich, VMS/CCTV-System, Alarmanlage · Fokus: Diebstahl, unberechtigter Zutritt, Sabotage</div>
         </div>
         <span class="toggle-icon">▼</span>
       </div>
@@ -1221,8 +1221,8 @@
             <tr id="row-b-3-6">
               <td class="q-num">3.6</td>
               <td class="q-text">
-                <em style="color:#0f3460;font-size:10px;">Scope: Winguard prüfen – Einsatzbereitschaft der technischen Alarmsysteme sicherstellen</em><br>
-                Sind die Monitore / Bildschirme des Winguard-Systems eingeschaltet, funktionsfähig und zeigen aktuelle Kamerabilder?
+                <em style="color:#0f3460;font-size:10px;">Scope: VMS/CCTV-System prüfen – Einsatzbereitschaft der technischen Alarmsysteme sicherstellen</em><br>
+                Sind die Monitore / Bildschirme des VMS/CCTV-Systems eingeschaltet, funktionsfähig und zeigen aktuelle Kamerabilder?
                 <div class="q-example">⚠️ Schwarze Bildschirme, eingefrorene Bilder, Monitore ausgeschaltet</div>
               </td>
               <td><div class="finding-group" data-row="b-3-6">
@@ -1239,7 +1239,7 @@
             <tr id="row-b-3-7">
               <td class="q-num">3.7</td>
               <td class="q-text">
-                <strong>Technische Einsatzbereitschaft:</strong> Gibt es aktuell Hardware-/Technik-Probleme in Winguard (Kameras, Bildschirme, etc.), welche eine Verwendung erschweren oder unmöglich machen?
+                <strong>Technische Einsatzbereitschaft:</strong> Gibt es aktuell Hardware-/Technik-Probleme im VMS/CCTV-System (Kameras, Bildschirme, etc.), welche eine Verwendung erschweren oder unmöglich machen?
                 <div class="q-example">⚠️ Langsame oder instabile Verbindung, Verbindungsabbrüche, Softwareprobleme</div>
               </td>
               <td><div class="finding-group" data-row="b-3-7">
@@ -1273,8 +1273,8 @@
             <tr id="row-b-3-9">
               <td class="q-num">3.9</td>
               <td class="q-text">
-                Sind Alarmweiterleitungen von Security-Alarmsystemen zu lokalen Sicherheitskräften und zum GSOC defekt oder nicht vorhanden?
-                <div class="q-example">⚠️ Lokale Alarme werden beim ext. Sicherheitsdienst nicht angezeigt, GSOC wird im Alarmfall nicht automatisch informiert</div>
+                Sind Alarmweiterleitungen von Security-Alarmsystemen zu lokalen Sicherheitskräften und zur Leitstelle / zum SOC defekt oder nicht vorhanden?
+                <div class="q-example">⚠️ Lokale Alarme werden beim ext. Sicherheitsdienst nicht angezeigt, Leitstelle wird im Alarmfall nicht automatisch informiert</div>
               </td>
               <td><div class="finding-group" data-row="b-3-9">
                 <label><input type="radio" name="b-3-9" value="1" onchange="setFinding('b-3-9',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1290,8 +1290,8 @@
             <tr id="row-b-3-10">
               <td class="q-num">3.10</td>
               <td class="q-text">
-                Sind Alarmweiterleitungen von Brand-Alarmsystemen zu lokalen Sicherheitskräften und zum GSOC defekt oder nicht vorhanden, sodass im Brandfall keine oder verspätete Information erfolgt?
-                <div class="q-example">⚠️ Brandalarm wird beim Sicherheitsdienst nicht angezeigt, GSOC wird nicht automatisch informiert</div>
+                Sind Alarmweiterleitungen von Brand-Alarmsystemen zu lokalen Sicherheitskräften und zur Leitstelle / zum SOC defekt oder nicht vorhanden, sodass im Brandfall keine oder verspätete Information erfolgt?
+                <div class="q-example">⚠️ Brandalarm wird beim Sicherheitsdienst nicht angezeigt, Leitstelle wird nicht automatisch informiert</div>
               </td>
               <td><div class="finding-group" data-row="b-3-10">
                 <label><input type="radio" name="b-3-10" value="1" onchange="setFinding('b-3-10',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1307,8 +1307,8 @@
             <tr id="row-b-3-11">
               <td class="q-num">3.11</td>
               <td class="q-text">
-                <strong>Organisatorische Einsatzbereitschaft:</strong> Hat der externe Sicherheitsdienst organisatorische Probleme bei der Bedienung des Winguard-Systems (Videoaufnahmen zurückspulen, Kamera-Bilder anhalten, Alarme bearbeiten, etc.)?
-                <div class="q-example">⚠️ Kein passendes Login, fehlende Schulungen für Winguard-Bedienung</div>
+                <strong>Organisatorische Einsatzbereitschaft:</strong> Hat der externe Sicherheitsdienst organisatorische Probleme bei der Bedienung des VMS/CCTV-Systems (Videoaufnahmen zurückspulen, Kamera-Bilder anhalten, Alarme bearbeiten, etc.)?
+                <div class="q-example">⚠️ Kein passendes Login, fehlende Schulungen für VMS-Bedienung</div>
               </td>
               <td><div class="finding-group" data-row="b-3-11">
                 <label><input type="radio" name="b-3-11" value="1" onchange="setFinding('b-3-11',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1356,8 +1356,8 @@
             <tr id="row-b-4-1">
               <td class="q-num">4.1</td>
               <td class="q-text">
-                <strong>Ablaufen / Gespräch mit Sicherheitsdienst (Coredinate-Bestreifung):</strong> Sind die aktuellen Patrouillen-Routen und Frequenzen nicht mehr sinnvoll, da wichtige Bereiche nicht begangen werden oder der Weg zu lang ist?
-                <div class="q-example">⚠️ Wichtige Bereiche werden nicht bestreift, Coredinate-Stechpunkte wurden entfernt</div>
+                <strong>Ablaufen / Gespräch mit Sicherheitsdienst (Patrouillen-Bestreifung):</strong> Sind die aktuellen Patrouillen-Routen und Frequenzen nicht mehr sinnvoll, da wichtige Bereiche nicht begangen werden oder der Weg zu lang ist?
+                <div class="q-example">⚠️ Wichtige Bereiche werden nicht bestreift, Kontrollpunkte wurden entfernt</div>
               </td>
               <td><div class="finding-group" data-row="b-4-1">
                 <label><input type="radio" name="b-4-1" value="1" onchange="setFinding('b-4-1',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1473,8 +1473,8 @@
             <tr id="row-b-5-5">
               <td class="q-num">5.5</td>
               <td class="q-text">
-                <strong>Prozess der Kontaktaufnahme:</strong> Sind die relevanten Ansprechpartner im Notfall unbekannt? (GSOC, Rufbereitschaft FM, SecOps, Behörden)
-                <div class="q-example">⚠️ GSOC-Nummer nicht auswendig bekannt, keine ausgedruckten Notfalllisten vor Ort</div>
+                <strong>Prozess der Kontaktaufnahme:</strong> Sind die relevanten Ansprechpartner im Notfall unbekannt? (Leitstelle / SOC, Rufbereitschaft FM, Security Manager, Behörden)
+                <div class="q-example">⚠️ Notfallnummer nicht auswendig bekannt, keine ausgedruckten Notfalllisten vor Ort</div>
               </td>
               <td><div class="finding-group" data-row="b-5-5">
                 <label><input type="radio" name="b-5-5" value="1" onchange="setFinding('b-5-5',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1490,8 +1490,8 @@
             <tr id="row-b-5-6">
               <td class="q-num">5.6</td>
               <td class="q-text">
-                <strong>Prozess medizinischer Notfall:</strong> Ist der Handlungsablauf im Erste-Hilfe-Fall / medizinischen Notfall unbekannt oder kann nicht beschrieben werden? (RTW-Einfahrt, Begleitung, GSOC-Info, etc.)
-                <div class="q-example">⚠️ Keine GSOC-Information im Erste-Hilfe-Fall, keine Ersthelfer-Listen vor Ort, kein Durchgang für Rettungsdienst</div>
+                <strong>Prozess medizinischer Notfall:</strong> Ist der Handlungsablauf im Erste-Hilfe-Fall / medizinischen Notfall unbekannt oder kann nicht beschrieben werden? (RTW-Einfahrt, Begleitung, Leitstellen-Info, etc.)
+                <div class="q-example">⚠️ Keine Leitstellen-Information im Erste-Hilfe-Fall, keine Ersthelfer-Listen vor Ort, kein Durchgang für Rettungsdienst</div>
               </td>
               <td><div class="finding-group" data-row="b-5-6">
                 <label><input type="radio" name="b-5-6" value="1" onchange="setFinding('b-5-6',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1507,7 +1507,7 @@
             <tr id="row-b-5-7">
               <td class="q-num">5.7</td>
               <td class="q-text">
-                <strong>Prozess Evakuierung:</strong> Ist der Handlungsablauf im Brandfall / bei Evakuierung unbekannt? (Feuerwehr-Einfahrt, GSOC-Info, Evakuierung unterstützen, Defibrillator-Standort, Ersthelfer vor Ort?)
+                <strong>Prozess Evakuierung:</strong> Ist der Handlungsablauf im Brandfall / bei Evakuierung unbekannt? (Feuerwehr-Einfahrt, Leitstellen-Info, Evakuierung unterstützen, Defibrillator-Standort, Ersthelfer vor Ort?)
                 <div class="q-example">⚠️ Kein Wissen über Evakuierungsprozess, keine Ersthelferliste ausgehängt, Defibrillator-Standort unbekannt</div>
               </td>
               <td><div class="finding-group" data-row="b-5-7">
@@ -1525,8 +1525,8 @@
               <td class="q-num">5.8</td>
               <td class="q-text">
                 <em style="color:#0f3460;font-size:10px;">Scope: Technische Ausstattung des ext. Sicherheitsdienstes vor Ort</em><br>
-                Gibt es Probleme mit den PCs / iPads vor Ort für die korrekte Anmeldung und das Managen der Zufahrt und der Zutritte? (Quentic-App, TimeStamp-App, Whitelist, etc.)
-                <div class="q-example">⚠️ iPads defekt, Zugänge in Quentic/Teams offline, Besucher-Whitelist nicht prüfbar</div>
+                Gibt es Probleme mit den PCs / Tablets vor Ort für die korrekte Anmeldung und das Managen der Zufahrt und der Zutritte? (Besuchermanagementsystem, Whitelist, etc.)
+                <div class="q-example">⚠️ Tablets defekt, Zugänge im Besuchermanagementsystem offline, Besucher-Whitelist nicht prüfbar</div>
               </td>
               <td><div class="finding-group" data-row="b-5-8">
                 <label><input type="radio" name="b-5-8" value="1" onchange="setFinding('b-5-8',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1542,8 +1542,8 @@
             <tr id="row-b-5-9">
               <td class="q-num">5.9</td>
               <td class="q-text">
-                Gibt es Probleme mit Coredinate inkl. der Coredinate-App für Streifenrundgänge und dem Reporting von Incidents?
-                <div class="q-example">⚠️ Coredinate-Account nicht einloggbar, Kamera defekt, unscharfe Bilder in Berichten</div>
+                Gibt es Probleme mit dem Patrouillensystem inkl. der Patrol-App für Streifenrundgänge und dem Reporting von Incidents?
+                <div class="q-example">⚠️ Patrol-App-Account nicht einloggbar, Kamera defekt, unscharfe Bilder in Berichten</div>
               </td>
               <td><div class="finding-group" data-row="b-5-9">
                 <label><input type="radio" name="b-5-9" value="1" onchange="setFinding('b-5-9',1)"><span class="radio-dot" style="color:#27ae60"></span><span class="f1-label">1</span></label>
@@ -1559,7 +1559,7 @@
             <tr id="row-b-5-10">
               <td class="q-num">5.10</td>
               <td class="q-text">
-                Gibt es bei der Verwendung (technisch) oder Verwaltung (organisatorisch) des TRAKA-Schranks Probleme?
+                Gibt es bei der Verwendung (technisch) oder Verwaltung (organisatorisch) des Schlüsselschranks Probleme?
                 <div class="q-example">⚠️ Schlüssel verschwunden, technische Probleme, kein Zugriff auf das System</div>
               </td>
               <td><div class="finding-group" data-row="b-5-10">
@@ -1593,7 +1593,7 @@
             <tr id="row-b-5-12">
               <td class="q-num">5.12</td>
               <td class="q-text">
-                <strong>Funk-Kommunikationscheck (bitte ans GSOC durchführen lassen):</strong> Gibt es Probleme mit den vor Ort eingesetzten Funk-Geräten im organisatorischen oder technischen Bereich?
+                <strong>Funk-Kommunikationscheck (bitte an die Leitstelle / SOC durchführen lassen):</strong> Gibt es Probleme mit den vor Ort eingesetzten Funk-Geräten im organisatorischen oder technischen Bereich?
                 <div class="q-example">⚠️ Funkgeräte nicht sofort einsatzbereit, technische/Software-Probleme, Funksprüche kommen nicht an</div>
               </td>
               <td><div class="finding-group" data-row="b-5-12">
@@ -1686,8 +1686,8 @@
             </tr>
             <tr id="row-e-1-2">
               <td class="q-num">1.2</td>
-              <td class="q-text">Sind die Ansprechpartner für Notfälle (GSOC, ext. Sicherheitsdienst) bekannt und erreichbar?
-                <div class="q-example">⚠️ Front Desk weiß nicht wann/wie das GSOC zu kontaktieren ist</div>
+              <td class="q-text">Sind die Ansprechpartner für Notfälle (Leitstelle / SOC, ext. Sicherheitsdienst) bekannt und erreichbar?
+                <div class="q-example">⚠️ Front Desk weiß nicht wann/wie die Leitstelle zu kontaktieren ist</div>
               </td>
               <td><input type="text" class="q-input" placeholder="Name / Team..."></td>
               <td><div class="finding-group" data-row="e-1-2">
@@ -2061,7 +2061,7 @@
         </div>
         <div class="doku-row">
           <label>Unterschrift / Freigabe durch:</label>
-          <input type="text" id="doku-sign" placeholder="Name RSM / SecOps Lead..." style="min-width:240px;" />
+          <input type="text" id="doku-sign" placeholder="Name Security Manager / Lead..." style="min-width:240px;" />
         </div>
         <div style="margin-top:14px;">
           <label style="font-size:12px;color:#555;display:block;margin-bottom:6px;font-weight:600;">Zusammenfassung / Kommentar:</label>
@@ -2069,7 +2069,7 @@
         </div>
         <div id="acute-box" class="acute-alert" style="display:none;">
           <span>🚨</span>
-          <span>ACHTUNG: Es wurden Major Findings (Wert 3) erfasst – sofortige Eskalation und Maßnahmen erforderlich! Bitte GSOC und RSM umgehend informieren.</span>
+          <span>ACHTUNG: Es wurden Major Findings (Wert 3) erfasst – sofortige Eskalation und Maßnahmen erforderlich! Bitte Leitstelle / SOC und Security Manager umgehend informieren.</span>
         </div>
       </div>
 
